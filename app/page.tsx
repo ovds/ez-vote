@@ -114,6 +114,20 @@ function App() {
     console.log(data)
   }
 
+  const startServer = async (candidates: Candidate[]) => {
+    const res = await fetch('http://localhost:5000/server', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        candidates: candidates
+      })
+    })
+    const data = await res.json()
+    console.log(data)
+  }
+
   return (
       <ChakraProvider>
         <Flex
