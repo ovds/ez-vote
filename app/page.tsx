@@ -1,113 +1,199 @@
-import Image from 'next/image'
+'use client'
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+import {
+  Button,
+  Box,
+  Flex,
+  Text,
+  Image,
+  useColorModeValue,
+  ChakraProvider, useToast, TabPanel, TabPanels, Tab, TabList, Tabs, Center, Stack
+} from '@chakra-ui/react';
+import {useState} from "react";
+import { sha256} from 'js-sha256';
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+const candidates = [
+  {
+    id: 1,
+    name: "John Doe",
+    image: "https://i.pravatar.cc/300?img=2",
+    party: "Independent",
+    description: "John Doe is a business owner with 10 years of experience in the industry.",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    image: "https://i.pravatar.cc/300?img=2",
+    party: "Democratic Party",
+    description: "Jane Smith is a lawyer with a focus on environmental law and policy.",
+  },
+  {
+    id: 3,
+    name: "Mike Johnson",
+    image: "https://i.pravatar.cc/300?img=2",
+    party: "Republican Party",
+    description: "Mike Johnson is a former military general who is running on a platform of national security and defense.",
+  },
+];
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+interface Candidate {
+  id: number;
+  name: string;
+  image: string;
+  party: string;
+  description: string;
 }
+
+function App() {
+  const [selectedCandidate, setSelectedCandidate] = useState<Candidate>(candidates[0])
+  const [isDisabled, setIsDisabled] = useState(false)
+  const bg = useColorModeValue('gray.50', 'gray.700')
+  const [dataJSON, setDataJSON] = useState([0, 0, 0]);
+  const toast = useToast();
+
+  const getResults = async () => {
+    const data = await fetch('http://localhost:5000/decrypted_results');
+    var nerding = [0, 0, 0];
+    data.json().then(r => {
+      nerding = r;
+      setDataJSON(r)
+      console.log(r);
+    });
+    return nerding;
+  }
+
+  const download = async () => {
+    const link = document.createElement('a');
+    const data = await fetch('http://localhost:5000/chain')
+    const json = await data.json();
+    const file = new Blob([JSON.stringify(json)], {type: 'text/plain'});
+    link.download = 'blockchain.txt';
+    link.href = URL.createObjectURL(file);
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+
+  const handleVote = async (candidate: any) => {
+    setSelectedCandidate(candidate)
+    setIsDisabled(true)
+    const ip = await fetch("https://api.ipify.org?format=json");
+    ip.json().then(r => {
+      sendVote(r.ip, candidate.id).then(r => console.log(r));
+    });
+    if (!isDisabled) toast({
+      title: "Voted!",
+      description: `You voted for ${candidate.name}`,
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    })
+  }
+
+  const sendVote = async (ip:any, id:any) => {
+    console.log("ip: " + ip);
+    const res = await fetch('http://localhost:5000/vote', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: sha256(ip.toString()).toString(),
+        vote: id - 1
+      })
+    })
+    if (res.status === 401) {
+      toast({
+        title: "Error",
+        description: "You have already voted!",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      })
+    }
+    const data = await res.json()
+    console.log(data)
+  }
+
+  return (
+      <ChakraProvider>
+        <Flex
+            direction="column"
+            align="center"
+            bg={bg}
+            minH="100vh"
+            justifyContent="center"
+            px={4}
+            className={"h-screen space-y-10 bg-slate-700 mesh"}
+        >
+          <Tabs className={"w-3/4 h-4/5 shadow-2xl rounded-lg bg-white mx-auto"} isFitted>
+            <TabList>
+              <Tab>Vote</Tab>
+              <Tab>Results</Tab>
+            </TabList>
+
+            <TabPanels>
+              <TabPanel>
+                <Text fontSize="3xl" fontWeight="bold" mb={8} color="gray.700">
+                  Vote for the candidate of your choice:
+                </Text>
+                <div className={"flex space-x-10"}>
+                  {candidates.map((candidate) => (
+                      <Box
+                          key={candidate.id}
+                          w={['100%', '50%', '33.3%']}
+                          p={0}
+                          onClick={() => handleVote(candidate)}
+                          sx={isDisabled ? {cursor: 'not-allowed'} : {cursor: 'pointer'}}
+                          opacity={isDisabled && selectedCandidate.id !== candidate.id ? 0.5 : 1}
+                          pointerEvents={
+                            isDisabled && selectedCandidate.id !== candidate.id ? 'none' : 'auto'
+                          }
+                          bg="white"
+                          borderRadius="lg"
+                          boxShadow="md"
+                          transition="transform 0.2s"
+                          _hover={!isDisabled && {transform: 'scale(1.05)'}}
+                          className={"h-1/6"}
+                      >
+                        <Image
+                            src={candidate.image}
+                            alt={candidate.name}
+                            objectFit="cover"
+                            className={"rounded-t-lg"}
+                        />
+                        <Box p={4}>
+                          <Text fontSize="xl" fontWeight="semibold" color="gray.700">
+                            {candidate.name}
+                          </Text>
+                          <Button
+                              variant="solid"
+                              colorScheme="blue"
+                              mt={4}
+                              isDisabled={isDisabled && selectedCandidate.id !== candidate.id}
+                          >
+                            {isDisabled && selectedCandidate.id === candidate.id ? 'Voted!' : 'Vote'}
+                          </Button>
+                        </Box>
+                      </Box>
+                  ))}
+                </div>
+              </TabPanel>
+              <TabPanel>
+                <Center className={"w-full"}>
+                  <Stack className={"text-center"}>
+                    <Text>John Doe: {dataJSON[0]}</Text>
+                    <Text>Jane Smith: {dataJSON[1]}</Text>
+                    <Text>Mike Johnson: {dataJSON[2]}</Text>
+                    <Button onClick={download} className={""}>Download blockchain</Button>
+                    <Button onClick={getResults} className={""}>Refresh</Button>
+                  </Stack>
+                </Center>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Flex>
+      </ChakraProvider>
+  );
+}
+
+export default App;
