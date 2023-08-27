@@ -27,7 +27,6 @@ function App() {
     const bg = useColorModeValue('gray.50', 'gray.700')
     const [dataJSON, setDataJSON] = useState([0, 0, 0]);
     const toast = useToast();
-    const [candidates, setCandidates] = useState<Candidate[]>([])
     const [selectedCandidate, setSelectedCandidate] = useState<Candidate>({
         id: 0,
         name: '',
@@ -36,10 +35,26 @@ function App() {
         description: ''
     })
 
-    fetch('/api/data').then(r => r.json()).then(r => {
-        console.log(r)
-        setCandidates(r.data)
-    })
+    const candidates = [{
+        id: 1,
+        name: 'Dharman',
+        image: 'https://yt3.googleusercontent.com/ytc/AOPolaR7NEL8EGGzbstXEZeTmGKNa9318OiCmHwkSiX5=s900-c-k-c0x00ffffff-no-rj',
+        party: 'Diggers',
+        description: 'I am Dharr Man'
+    }, {
+        id: 2,
+        name: 'Song kok',
+        image: 'https://i.pinimg.com/736x/08/4d/01/084d014a123f3c63df34b9a16512bc3a.jpg',
+        party: 'Diggers',
+        description: 'I am Abhilash'
+    }, {
+        id: 3,
+        name: 'Ki Lian Mbappe',
+        image: 'https://images2.minutemediacdn.com/image/fetch/w_736,h_485,c_fill,g_auto,f_auto/https%3A%2F%2Ftherealchamps.com%2Fwp-content%2Fuploads%2Fgetty-images%2F2017%2F07%2F1237198304-850x560.jpeg',
+        party: 'Diggers',
+        description: 'I am Bharat'
+    }]
+
 
     const getResults = async () => {
         const data = await fetch('http://localhost:5000/decrypted_results');
@@ -127,7 +142,7 @@ function App() {
                                 Vote for the candidate of your choice:
                             </Text>
                             <div className={"flex space-x-10"}>
-                                { if (candidates != null) candidates.map((candidate) => (
+                                { candidates.map((candidate) => (
                                     <Box
                                         key={candidate.id}
                                         w={['100%', '50%', '33.3%']}
